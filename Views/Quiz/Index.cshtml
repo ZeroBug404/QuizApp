@@ -1,0 +1,29 @@
+@model IEnumerable<dynamic>
+@{
+ViewData["Title"] = "Available Quizzes";
+}
+<h2>Available Quizzes</h2>
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Title</th>
+<th>Description</th>
+<th>Time Limit</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+@foreach (var q in Model)
+{
+<tr>
+<td>@q.Title</td>
+<td>@q.Description</td>
+<td>@(q.TimeLimitMinutes == null ? "—" : q.TimeLimitMinutes + " min")</td>
+<td class="text-end">
+<a class="btn btn-primary" asp-action="Take" asp-route-id="@q.Id">Start</a>
+</td>
+</tr>
+}
+</tbody>
+</table>
+<p><a class="btn btn-outline-secondary" asp-controller="Admin" asp-action="Index">Admin Area</a></p>

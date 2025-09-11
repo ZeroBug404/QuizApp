@@ -1,0 +1,42 @@
+@model QuizApp.Models.Quiz
+@{
+ViewData["Title"] = $"Manage Questions — {Model.Title}";
+}
+<h2>Manage Questions — @Model.Title</h2>
+<p>
+<a class="btn btn-primary" asp-action="CreateQuestion" asp-route-quizId="@Model.Id">Add Question</a>
+<a class="btn btn-secondary" asp-action="Index">Back to Quizzes</a>
+</p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th style="width:50%">Question</th>
+<th>Options</th>
+<th style="width:220px"></th>
+</tr>
+</thead>
+<tbody>
+@foreach (var q in Model.Questions)
+{
+<tr>
+<td>@q.Text</td>
+<td>
+<ul>
+@foreach (var o in q.Options)
+{
+<li>@o.Text @if(o.IsCorrect){<strong>(correct)</strong>}</li>
+}
+</ul>
+<a class="btn btn-sm btn-outline-success" asp-action="CreateOption" asp-route-questionId="@q.Id">Add Option</a>
+</td>
+<td class="text-end">
+<a class="btn btn-sm btn-secondary" asp-action="EditQuestion" asp-route-id="@q.Id">Edit</a>
+<form asp-action="DeleteQuestion" asp-route-id="@q.Id" method="post" class="d-inline">
+@Html.AntiForgeryToken()
+<button class="btn btn-sm btn-danger" onclick="return confirm('Delete this question?')">Delete</button>
+</form>
+</td>
+</tr>
+}
+</tbody>
+</table>

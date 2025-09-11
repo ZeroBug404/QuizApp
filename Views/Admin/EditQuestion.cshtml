@@ -1,0 +1,33 @@
+@model QuizApp.Models.Question
+@{
+ViewData["Title"] = "Edit Question";
+}
+<h2>Edit Question</h2>
+<hr />
+<form asp-action="EditQuestion" method="post">
+@Html.AntiForgeryToken()
+<input type="hidden" asp-for="Id" />
+<input type="hidden" asp-for="QuizId" />
+<div class="mb-3">
+<label asp-for="Text" class="form-label"></label>
+<textarea asp-for="Text" class="form-control"></textarea>
+<span asp-validation-for="Text" class="text-danger"></span>
+</div>
+<button class="btn btn-primary">Update</button>
+<a asp-action="ManageQuestions" asp-route-quizId="@Model.QuizId" class="btn btn-secondary">Back</a>
+</form>
+
+
+@if (Model.Options?.Any() == true)
+{
+<h4 class="mt-4">Options</h4>
+<ul>
+@foreach (var o in Model.Options)
+{
+<li>
+@o.Text @if (o.IsCorrect){ <strong>(correct)</strong> }
+<a class="btn btn-sm btn-outline-secondary" asp-action="EditOption" asp-route-id="@o.Id">Edit</a>
+</li>
+}
+</ul>
+}

@@ -1,0 +1,34 @@
+@model QuizApp.Models.Quiz
+@{
+ViewData["Title"] = "Edit Quiz";
+}
+<h2>Edit Quiz</h2>
+<hr />
+<form asp-action="EditQuiz" method="post">
+@Html.AntiForgeryToken()
+<input type="hidden" asp-for="Id" />
+<div class="mb-3">
+<label asp-for="Title" class="form-label"></label>
+<input asp-for="Title" class="form-control" />
+<span asp-validation-for="Title" class="text-danger"></span>
+</div>
+<div class="mb-3">
+<label asp-for="Description" class="form-label"></label>
+<textarea asp-for="Description" class="form-control"></textarea>
+</div>
+<div class="mb-3">
+<label asp-for="TimeLimitMinutes" class="form-label"></label>
+<input asp-for="TimeLimitMinutes" class="form-control" />
+</div>
+<div class="form-check mb-2">
+<input asp-for="ShuffleQuestions" class="form-check-input" />
+<label asp-for="ShuffleQuestions" class="form-check-label"></label>
+</div>
+<div class="form-check mb-3">
+<input asp-for="ShuffleOptions" class="form-check-input" />
+<label asp-for="ShuffleOptions" class="form-check-label"></label>
+</div>
+<button class="btn btn-primary">Update</button>
+<a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>
+@section Scripts{ @await Html.PartialAsync("_ValidationScriptsPartial") }

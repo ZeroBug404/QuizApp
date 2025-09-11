@@ -1,0 +1,23 @@
+@model QuizApp.Models.Option
+@{
+ViewData["Title"] = "Edit Option";
+}
+<h2>Edit Option</h2>
+<hr />
+<form asp-action="EditOption" method="post">
+@Html.AntiForgeryToken()
+<input type="hidden" asp-for="Id" />
+<input type="hidden" asp-for="QuestionId" />
+<div class="mb-3">
+<label asp-for="Text" class="form-label"></label>
+<input asp-for="Text" class="form-control" />
+<span asp-validation-for="Text" class="text-danger"></span>
+</div>
+<div class="form-check mb-3">
+<input asp-for="IsCorrect" class="form-check-input" />
+<label asp-for="IsCorrect" class="form-check-label"></label>
+</div>
+<button class="btn btn-primary">Update</button>
+<a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>
+@section Scripts{ @await Html.PartialAsync("_ValidationScriptsPartial") }

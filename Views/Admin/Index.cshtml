@@ -1,0 +1,34 @@
+@model IEnumerable<QuizApp.Models.Quiz>
+@{
+ViewData["Title"] = "Admin — Quizzes";
+}
+<h2 class="mb-3">Admin — Quizzes</h2>
+<p>
+<a class="btn btn-primary" asp-action="CreateQuiz">Create Quiz</a>
+</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Title</th>
+<th>Questions</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+@foreach (var q in Model)
+{
+<tr>
+<td>@q.Title</td>
+<td>@(q.Questions?.Count ?? 0)</td>
+<td class="text-end">
+<a class="btn btn-sm btn-secondary" asp-action="EditQuiz" asp-route-id="@q.Id">Edit</a>
+<a class="btn btn-sm btn-info" asp-action="ManageQuestions" asp-route-quizId="@q.Id">Questions</a>
+<form asp-action="DeleteQuiz" asp-route-id="@q.Id" method="post" class="d-inline">
+@Html.AntiForgeryToken()
+<button class="btn btn-sm btn-danger" onclick="return confirm('Delete this quiz?')">Delete</button>
+</form>
+</td>
+</tr>
+}
+</tbody>
+</table>

@@ -1,0 +1,12 @@
+@model QuizApp.Models.Attempt
+@{
+ViewData["Title"] = "Result";
+}
+<h2>Result — @Model.Quiz.Title</h2>
+<p>
+<strong>Score:</strong> @Model.Score / @Model.MaxScore
+(<strong>@Model.Percentage.ToString("F1")%</strong>)
+</p>
+<p>
+<a class="btn btn-secondary" asp-action="Index">Back to Quizzes</a>
+</p>
